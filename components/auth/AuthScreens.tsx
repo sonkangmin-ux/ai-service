@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, type ReactNode, useEffect, useState } from "react";
 import { Alert, Button, Input, PageTitle } from "@/components/ui";
+import { authEmailRedirect } from "@/lib/auth/redirects";
 import { isSupabaseConfigured } from "@/lib/config";
 import { createBrowserSupabase } from "@/lib/supabase/client";
 import { loginSchema, signupSchema, forgotPasswordSchema, resetPasswordSchema } from "@/lib/domain/schema";
@@ -71,7 +72,10 @@ export function SignupForm() {
     const { error: signError } = await supabase!.auth.signUp({
       email: parsed.data.email,
       password: parsed.data.password,
-      options: { data: { displayName: parsed.data.displayName } },
+      options: {
+        data: { displayName: parsed.data.displayName },
+        emailRedirectTo: authEmailRedirect(window.location.origin, "/learn"),
+      },
     });
     setLoading(false);
     if (signError) {
@@ -150,7 +154,11 @@ export function LoginForm() {
             type="button"
             variant="secondary"
             onClick={async () => {
-              await createBrowserSupabase()?.auth.resend({ type: "signup", email: unverified });
+              await createBrowserSupabase()?.auth.resend({
+                type: "signup",
+                email: unverified,
+                options: { emailRedirectTo: authEmailRedirect(window.location.origin, "/learn") },
+              });
             }}
           >
             인증 메일 다시 보내기
@@ -182,7 +190,11 @@ export function VerifyEmailScreen() {
         onClick={async () => {
           if (!email) return;
           setWait(60);
-          await createBrowserSupabase()?.auth.resend({ type: "signup", email });
+          await createBrowserSupabase()?.auth.resend({
+            type: "signup",
+            email,
+            options: { emailRedirectTo: authEmailRedirect(window.location.origin, "/learn") },
+          });
           const timer = window.setInterval(() => setWait((value) => (value <= 1 ? (clearInterval(timer), 0) : value - 1)), 1000);
         }}
       >
@@ -225,7 +237,7 @@ export function ForgotPasswordForm() {
       return;
     }
     const { error: resetError } = await createBrowserSupabase()!.auth.resetPasswordForEmail(parsed.data.email, {
-      redirectTo: `${window.location.origin}/auth/confirm?next=/reset-password`,
+      redirectTo: authEmailRedirect(window.location.origin, "/reset-password"),
     });
     if (resetError?.status === 429) setError("발송 제한에 도달했습니다. 잠시 후 다시 시도해 주세요.");
     else if (resetError) setError("네트워크 문제로 요청하지 못했습니다.");

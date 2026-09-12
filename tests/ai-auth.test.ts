@@ -1,6 +1,7 @@
 import { pythonFoundations } from "../content/python-foundations";
 import { fallbackFeedback } from "../lib/ai/fallback";
 import { validateModelFeedback } from "../lib/ai/validate";
+import { authEmailRedirect } from "../lib/auth/redirects";
 import { originAllowed, safeNextPath } from "../lib/auth/safe-next";
 import { DEMO_STORAGE_KEY, GUEST_STORAGE_KEY } from "../lib/domain/ids";
 import { parseModelFeedback } from "../lib/domain/schema";
@@ -56,6 +57,15 @@ describe("auth helpers", () => {
     expect(safeNextPath("https://evil.example")).toBe("/learn");
     expect(safeNextPath("//evil.example")).toBe("/learn");
     expect(safeNextPath("/reset-password")).toBe("/reset-password");
+  });
+
+  it("builds a same-origin auth callback", () => {
+    expect(authEmailRedirect("https://example.netlify.app", "/learn")).toBe(
+      "https://example.netlify.app/auth/callback?next=%2Flearn",
+    );
+    expect(authEmailRedirect("https://example.netlify.app/", "https://evil.example")).toBe(
+      "https://example.netlify.app/auth/callback?next=%2Flearn",
+    );
   });
 
   it("checks origin against APP_URL", () => {

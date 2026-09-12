@@ -6,4 +6,5 @@
 - AI는 Claude만 구현한다. `@anthropic-ai/sdk`의 `messages.create`와 `output_config.format` JSON Schema를 사용한다. 환경변수는 `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`로 통일한다. 모델 ID는 `ANTHROPIC_MODEL`만 본다.
 - 시스템 한글 폰트를 쓰고 next/font 외부 다운로드는 제거했다.
 - 회원 AppState는 계정당 스냅샷 1개(`learning_states`)로 저장한다. 장기 통계 모델이라고 주장하지 않는다.
+- 가입·재설정 메일은 `/auth/callback`(PKCE code)과 `/auth/confirm`(token_hash) 둘 다 받는다. 기본 Supabase 메일과 저장소 템플릿을 모두 수용한다.
 - `.env.local`의 기존 비밀 값은 읽거나 덮어쓰지 않았다. 운영자가 `ANTHROPIC_API_KEY`와 `ANTHROPIC_MODEL`을 직접 넣는다.

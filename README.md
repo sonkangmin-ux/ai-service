@@ -63,7 +63,7 @@ npm run check:config
 - 데모: `learning-compass:demo:v1` localStorage
 - 회원: Supabase `learning_states.payload` (원본은 DB). 브라우저에 학습 본문을 영구 캐시하지 않습니다.
 
-회원가입·로그인·비밀번호 재설정은 Supabase Auth입니다. 설정이 없으면 가입/로그인 화면에 ‘계정 기능을 준비 중입니다’를 보여 주고 가짜 가입 성공을 표시하지 않습니다.
+회원가입·로그인·비밀번호 재설정은 Supabase Auth입니다. `NEXT_PUBLIC_SUPABASE_URL`과 `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`가 없으면 가입/로그인 화면에 ‘계정 기능을 준비 중입니다’를 보여 주고 가짜 가입 성공을 표시하지 않습니다. 콘솔 절차는 `SETUP.md`를 봅니다.
 
 ## 검증 여부
 
