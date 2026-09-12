@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --border: #cbd5e1;
+  --success: #166534;
+  --warning: #92400e;
+  --error: #b91c1c;
+  --shadow: 0 1px 2px rgb(15 23 42 / 0.06);
+  --header: 64px;
+  --sidebar: 224px;
+  --content: 1120px;
+  --nav: 64px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --font-sans: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 26px;
+  min-height: 100%;
+}
+
+h1, .page-title {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  h1, .page-title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
+
+.helper { font-size: 14px; line-height: 22px; color: var(--muted); }
+.label { font-size: 12px; line-height: 18px; font-weight: 600; }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+}
+.skip-link:focus {
+  left: 8px;
+  z-index: 80;
+  background: var(--surface);
+  padding: 8px 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+code, pre, textarea.code {
+  font-family: var(--font-mono);
+}
