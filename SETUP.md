@@ -4,7 +4,7 @@
 
 ## 1. 패키지
 
-Node.js 설치 후 `learning-compass`에서 `npm install`을 실행합니다.
+Node.js 설치 후 저장소 루트에서 `npm install`을 실행합니다.
 
 ## 2. Supabase 프로젝트
 
@@ -55,7 +55,7 @@ Anthropic 콘솔에서 API 키를 만들고, 현재 이용 가능한 모델 ID�
 
 ## 10. 호스팅
 
-이번 작업에서 production 호스팅은 실행하지 않습니다. 추후 호스팅 시 환경변수, HTTPS, 정확한 APP_URL/redirect, 메일 발송, RLS·사용량 제한을 그 환경에서 확인해야 합니다.
+Netlify는 저장소 루트의 Next.js 앱을 빌드합니다. Base directory는 비워 둡니다. 환경변수는 Netlify 콘솔에만 넣고, `APP_URL`과 Supabase Auth Site URL/redirect를 배포 주소로 맞춥니다. 비밀 값은 git에 올리지 않습니다.
 
 ## 설정 조합
 

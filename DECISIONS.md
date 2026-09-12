@@ -1,6 +1,6 @@
 # 구현 결정
 
-- 기존 저장소에는 `CURSOR_BUILD_SPEC.md`만 있었고 앱 코드는 없었다. Next.js 앱은 npm 이름 제약 때문에 `learning-compass/`에 생성했다.
+- 기존 저장소에는 `CURSOR_BUILD_SPEC.md`만 있었고 앱 코드는 없었다. 처음에는 npm 이름 제약 때문에 `learning-compass/`에 생성했다가, Netlify가 루트 `package.json`을 찾도록 앱을 저장소 루트로 옮겼다.
 - Next.js 16.3.4 + App Router + TypeScript + Tailwind CSS 4 + Zod 4. 공식 create-next-app 기본값을 따랐다.
 - Next.js 16 관례에 따라 세션 갱신은 `proxy.ts`와 `@supabase/ssr`의 `getClaims`를 사용한다. 비밀번호 변경과 live AI 요청은 `getUser`로 현재 사용자를 확인한다.
 - AI는 Claude만 구현한다. `@anthropic-ai/sdk`의 `messages.create`와 `output_config.format` JSON Schema를 사용한다. 환경변수는 `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`로 통일한다. 모델 ID는 `ANTHROPIC_MODEL`만 본다.
